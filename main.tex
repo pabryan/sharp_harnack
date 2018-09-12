@@ -16,6 +16,8 @@
 
 \maketitle
 
+\section{The heat equation on static Riemannian manifolds}
+
 Let $u$ be a solution of the heat equation on a Riemannian manifold $(M, g)$,
 \[
 \partial_t u = \Delta_g u.
@@ -39,16 +41,55 @@ For convenience, let $f = \ln u$. Then equivalently we want
 \[
 f(x_2, t_2) - f(x_1, t_1) = \int_{t_1}^{t_2} \tfrac{d}{dt} [f(\gamma(t), t)] dt = \int_{t_1}^{t_2} \partial_t f + df \cdot \gamma' dt \geq - \ln C
 \]
-where $\gamma$ is any curve with $\gamma(t_1) = x_1$ and $\gamma(t_2) = x_2$. The inequality,
+where $\gamma$ is any curve with $\gamma(t_1) = x_1$ and $\gamma(t_2) = x_2$. Rearranging
+\[
+0 \leq g\left(\nabla f + \frac{1}{2} \gamma', \nabla f + \frac{1}{2} \gamma'\right)
+\]
+gives the inequality,
 \[
 df \cdot \gamma = g(\nabla f, \gamma') \geq -\abs{\nabla f}^2 - \frac{1}{4} \abs{\gamma'}^2
 \]
-allows us to separate the $\nabla f$ part and the $\gamma'$ part with equality attained precisely when $\gamma' = -2\nabla f$. This suggests the optimum $C$ will be obtained from a point-wise lower bound for
+which allows us to separate the $\nabla f$ part and the $\gamma'$ part. Equality is attained precisely when $\gamma' = -2\nabla f$. Thus we have
 \[
-Q = \partial_t f - \abs{\nabla f}^2 = \Delta Q.
+f(x_2, t_2) - f(x_1, t_1) \geq \int_{t_1}^{t_2} \partial_t f -\abs{\nabla f}^2 dt - \frac{1}{4} \abs{\gamma'}^2 dt.
+\]
+Therefore, if we have the pointwise bound
+\[
+\partial_t f -\abs{\nabla f}^2 dt \geq -q(t)
+\]
+for some function \(q(t)\), then we obtain that
+\[
+f(x_2, t_2) - f(x_1, t_1) \geq \int_{t_1}^{t_2} q(t) ds - \frac{1}{4} \Delta
+\]
+where
+\[
+\Delta = \inf \left\{\int_{t_1}^{t_2} \abs{\gamma'}^2 dt : \gamma(t_1) = x_1, \gamma(t_2) = x_2\right\}
+\]
+Observe that by H\"{o}lder's inequality,
+\[
+\int_{t_1}^{t_2} \abs{\gamma'}^2 dt \geq \frac{1}{t_2 - t_1} \left(\int_{t_1}^{t_2} \abs{\gamma'} dt\right)^2 = \frac{d(x_1, x_2)^2}{t_2 - t_1}
+\]
+with equality when \(\gamma\) is parametrised by constant speed. Thus taking any anti-derivative \(Q' = q\), we have
+\[
+\ln \left(\frac{u(x_2, t_2)}{u(x_1, t_1)}\right) = f(x_2, t_2) - f(x_1, t_1) \geq Q(t_2) - Q(t_1) - \frac{d(x_1, x_2)^2}{4(t_2 - t_1)}
+\]
+which after exponentiating gives
+\[
+u(x_2, t_2) \geq \exp(Q(t_2) - Q(t_1)) \exp\left(- \frac{d(x_1, x_2)^2}{4(t_2 - t_1)}\right).
+\]
+That is,
+\[
+C^{-1} = \exp(Q(t_2) - Q(t_1)) \exp\left(- \frac{d(x_1, x_2)^2}{4(t_2 - t_1)}\right).
 \]
 
-Then using the Bochner formula and Cauchy Schwartz applied to $\abs{\nabla^2 f}^2$ we compute,
+
+This suggests the optimum $C$ will be obtained from a point-wise lower bound for
+\[
+Q = \partial_t f - \abs{\nabla f}^2 = \Delta f.
+\]
+Certainly, this is the ideal situation - a pointwise inequality leads to the optimal integral inequality.
+
+Using the Bochner formula, Cauchy Schwartz ineqality applied to $\abs{\nabla^2 f}^2$ and the fact that \(\ric \geq 0\), we compute,
 \[
 \partial_t Q \geq \Delta Q + g(\nabla f, \nabla Q) + \frac{2}{n} Q^2
 \]
@@ -58,31 +99,22 @@ Q \geq -\frac{n}{2} \frac{1}{t}.
 \]
 That is,
 \[
-\partial_t f - \abs{\nabla f}^2 \geq -\frac{n}{2} \frac{1}{t}
+\partial_t f - \abs{\nabla f}^2 \geq q(t) := -\frac{n}{2} \frac{1}{t}.
 \]
-which gives
+Then we choose
 \[
-\partial_t f + d \cdot \gamma' \geq - \frac{1}{4} \abs{\gamma'}^2 - \frac{n}{2} \frac{1}{t}
+Q(t) = \ln t^{-n/2}
+\]
+so that
+\[
+\exp(Q(t_2) - Q(t_1)) = \left(\frac{t_2}{t_1}\right)^{-n/2}
 \]
 
-Integrating we obtain
-\[
-\ln \left(\frac{u(x_2, t_2)}{u(x_1, t_1)}\right) = f(x_2, t_2) - f(x_1, t_1) \geq - \frac{n}{2} \int_{t_1}^{t_2} \frac{1}{t} - \frac{1}{4} \int_{t_1}^{t_2} \abs{\gamma'}^2 dt = + \ln\left[\left(\frac{t_2}{t_1}\right)^{-\tfrac{n}{2}}\right] - \frac{1}{4} \int_{t_1}^{t_2} \abs{\gamma'}^2 dt.
-\]
-Since this is true for every $\gamma$ we can take the sup of the right hand side to obtain
-\[
-\ln \left(\frac{u(x_2, t_2)}{u(x_1, t_1)}\right) \geq  \ln\left[\left(\frac{t_2}{t_1}\right)^{-\tfrac{n}{2}}\right] - \frac{d(x_1, x_2)^2}{4(t_2 - t_1)}
-\]
-
-Taking exponentials yields,
-\[
-\frac{u(x_2, t_2)}{u(x_1, t_1)} \geq \left(\frac{t_2}{t_1}\right)^{-\tfrac{n}{2}} \exp\left(- \frac{d(x_1, x_2)^2}{4(t_2 - t_1)}\right).
-\]
 Thus
 \[
 u(x_1, t_1) \leq \left[\left(\frac{t_2}{t_1}\right)^{\tfrac{n}{2}} \exp\left(\frac{d(x_1, x_2)^2}{4(t_2 - t_1)}\right)\right] u(x_2, t_2)
 \]
-and we take,
+and we have,
 \[
 C = \left(\frac{t_2}{t_1}\right)^{\tfrac{n}{2}} \exp\left(\frac{d(x_1, x_2)^2}{4(t_2 - t_1)}\right)
 \]
@@ -116,4 +148,5 @@ and
 \liminf_{t\to 0} \inf_{x \in \R^n} Q(x, t) = - \infty.
 \]
 which would complete the picture of "fundamental solution achieves equality".
+\section{The heat equation on evolving Riemannian manifolds}
 \end{document}
